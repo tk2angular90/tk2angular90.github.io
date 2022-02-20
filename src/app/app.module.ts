@@ -7,6 +7,7 @@ import {HomeModule} from '@aut/pages/home/home.module';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {HttpDelayInterceptor} from '@aut/interceptors/http-delay-interceptor';
 import {GetDataModule} from '@aut/pages/get-data/get-data.module';
+import {UseParameterModule} from '@aut/pages/use-parameter/use-parameter.module';
 
 @NgModule({
   declarations: [
@@ -14,10 +15,12 @@ import {GetDataModule} from '@aut/pages/get-data/get-data.module';
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserTransferStateModule,
     AppRoutingModule,
     HomeModule,
     HttpClientModule,
     GetDataModule,
+    UseParameterModule,
   ],
   providers: [
     {

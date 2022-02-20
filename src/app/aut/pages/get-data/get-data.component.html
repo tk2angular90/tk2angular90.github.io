@@ -1,3 +1,7 @@
+<a [routerLink]="['/home']">
+  Home
+</a>
+
 <h1>
   Test
 </h1>
@@ -7,7 +11,7 @@
 </p>
 
 <p>
-  {{loading ? 'Loading...' : 'Loaded!'}}
+  {{loading ? 'Loading...' : 'Complete!'}}
 </p>
 
 <p>
@@ -21,9 +25,11 @@
 <p>
   When using Angular Universal,
   the components will be initialized twice by server and browser.
-  So the LifeCycle hooks are called twice include the `constructor`.
+  And the server calls Angular LifeCycle hooks from `ngOnInit()` to `ngOnDestroy()`.
 </p>
 
 <p>
-  The both components that created by server and browser are different object.
+  To prevent it,
+  Using `ServerTransferStateModule` and `BrowserTransferStateModule`.
+  It's similar with `LocalStorage` but can share the data between server and browser platforms.
 </p>

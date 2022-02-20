@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SubscriptionService} from '@aut/services/subscription.service';
 import {ApiService} from '@aut/services/api.service';
 import {finalize} from 'rxjs';
 import {PlatformService} from '@aut/services/platform.service';
-import {makeStateKey, TransferState} from '@angular/platform-browser';
+import {makeStateKey} from '@angular/platform-browser';
+import {TransferStateService} from '@aut/services/transfer-state.service';
 
 @Component({
   selector: 'app-get-data',
@@ -11,33 +12,34 @@ import {makeStateKey, TransferState} from '@angular/platform-browser';
   styleUrls: ['./get-data.component.scss'],
   providers: [
     SubscriptionService,
+    TransferStateService,
   ]
 })
 export class GetDataComponent implements OnInit {
   // Loading state.
   loading = false;
 
-  // The state of server responded for this page.
-  // Will be set `true` when page created by angular universal.
-  serverResponded = false;
-
   // The key for server responded state.
+  private _serverRespondedKey = makeStateKey('serverResponded');
 
   constructor(
     private apiService: ApiService,
     private platformService: PlatformService,
     private subscriptionService: SubscriptionService,
+    private transferStateService: TransferStateService,
   ) { }
 
   /**
    * Get the state of server responded for this page.
    * Will be set `true` when page created by angular universal.
    */
-  // get serverResponded(): boolean {
-  //   return this.transferState.get<boolean>(this._serverRespondedKey, false);
-  // }
+  get serverResponded(): boolean {
+    return this.transferStateService.get<boolean>(this._serverRespondedKey, false);
+  }
 
   ngOnInit(): void {
+    this.transferStateService.init([this._serverRespondedKey]);
+
     if (!this.serverResponded) {
       // Get data with http client.
       const sub = this.apiService
@@ -46,7 +48,7 @@ export class GetDataComponent implements OnInit {
           this.loading = false;
 
           if (this.platformService.isServer) {
-            this.serverResponded = true;
+            this.transferStateService.set<boolean>(this._serverRespondedKey, true);
           }
         }))
         .subscribe({
@@ -57,5 +59,4 @@ export class GetDataComponent implements OnInit {
       this.loading = true;
     }
   }
-
 }

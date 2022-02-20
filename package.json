@@ -10,7 +10,10 @@
     "dev:ssr": "ng run angular-universal-test:serve-ssr",
     "serve:ssr": "node dist/angular-universal-test/server/main.js",
     "build:ssr": "ng build && ng run angular-universal-test:server",
-    "prerender": "ng run angular-universal-test:prerender"
+    "prerender": "ng run angular-universal-test:prerender",
+    "delete:build": "node scripts/delete.js",
+    "copy:build": "node scripts/copy.js",
+    "build:github:prerender": "npm run delete:build && npm run prerender && npm run copy:build"
   },
   "private": true,
   "dependencies": {

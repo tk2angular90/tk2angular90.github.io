@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GetDataComponent } from './get-data.component';
+import { UseParameterComponent } from './use-parameter.component';
 import {RouterModule} from '@angular/router';
 
 
 
 @NgModule({
   declarations: [
-    GetDataComponent
+    UseParameterComponent
   ],
   imports: [
     CommonModule,
     RouterModule
   ]
 })
-export class GetDataModule { }
+export class UseParameterModule { }
