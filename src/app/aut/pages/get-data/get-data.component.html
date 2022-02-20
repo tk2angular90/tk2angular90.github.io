@@ -1,0 +1,29 @@
+<h1>
+  Test
+</h1>
+
+<p>
+  Refresh the page to test getting data from the server.
+</p>
+
+<p>
+  {{loading ? 'Loading...' : 'Loaded!'}}
+</p>
+
+<p>
+  Page Loaded By {{serverResponded ? 'Server' : 'Browser'}}
+</p>
+
+<h1>
+  Conclusion
+</h1>
+
+<p>
+  When using Angular Universal,
+  the components will be initialized twice by server and browser.
+  So the LifeCycle hooks are called twice include the `constructor`.
+</p>
+
+<p>
+  The both components that created by server and browser are different object.
+</p>
